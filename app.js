@@ -510,6 +510,9 @@ class App {
   }
 
   showStoryPhase(phaseKey) {
+    if (this.storyOverlay) {
+      this.storyOverlay.scrollTop = 0;
+    }
     const keyMap = {
       'finalCard': 'final-card',
       'easterEgg': 'easter-egg',

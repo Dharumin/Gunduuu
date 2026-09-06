@@ -41,17 +41,23 @@
   -webkit-user-select: none;
 }
 
+input, textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--bg-gradient);
   color: var(--text-main);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
   position: relative;
-  padding: 20px;
+  padding: 75px 20px 30px 20px;
 }
 
 /* Background Canvas */
@@ -61,6 +67,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   z-index: 0;
   pointer-events: none;
 }
@@ -68,24 +75,30 @@ body {
 /* Top Control Bar */
 .top-bar {
   position: fixed;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 800px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
-  max-width: 800px;
-  margin: 0 auto;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.top-bar .icon-btn {
+  pointer-events: auto;
 }
 
 .icon-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(25, 12, 38, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--text-main);
   padding: 10px 16px;
   border-radius: 30px;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -93,18 +106,18 @@ body {
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .icon-btn:hover {
-  background: rgba(255, 75, 139, 0.2);
+  background: rgba(255, 75, 139, 0.25);
   border-color: var(--primary);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px var(--primary-glow);
 }
 
 .icon-btn.active {
-  background: rgba(255, 75, 139, 0.3);
+  background: rgba(255, 75, 139, 0.35);
   border-color: var(--primary);
 }
 
@@ -114,7 +127,7 @@ body {
   z-index: 10;
   width: 100%;
   max-width: 480px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 /* Glassmorphism Card */
@@ -128,9 +141,11 @@ body {
   padding: 28px 24px;
   text-align: center;
   position: relative;
-  max-height: 90vh;
+  max-height: calc(100vh - 110px);
+  max-height: calc(100dvh - 110px);
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
@@ -153,9 +168,9 @@ body {
 /* --- Screen 1: Welcome --- */
 .hero-image-wrapper {
   position: relative;
-  width: 230px;
-  height: 210px;
-  margin-bottom: 24px;
+  width: 210px;
+  height: 190px;
+  margin: 0 auto 20px auto;
 }
 
 .hero-img {
@@ -203,7 +218,7 @@ body {
   font-size: 0.95rem;
   color: var(--primary);
   font-weight: 500;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   background: rgba(255, 75, 139, 0.1);
   padding: 8px 16px;
   border-radius: 20px;
@@ -245,14 +260,14 @@ body {
 /* --- Screen 2: Quiz --- */
 .quiz-header {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .progress-dots {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .dot {
@@ -282,16 +297,16 @@ body {
 
 .question-card {
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .question-text {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #ffffff;
   line-height: 1.4;
-  margin-bottom: 20px;
-  min-height: 60px;
+  margin-bottom: 18px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -300,13 +315,13 @@ body {
 .options-grid {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 11px;
   width: 100%;
 }
 
 .option-btn {
   width: 100%;
-  padding: 14px 20px;
+  padding: 13px 18px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-md);
@@ -333,8 +348,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   font-weight: 600;
@@ -371,10 +386,10 @@ body {
 /* Feedback Banner */
 .feedback-banner {
   width: 100%;
-  padding: 14px 18px;
+  padding: 12px 16px;
   border-radius: var(--radius-sm);
-  margin-top: 16px;
-  font-size: 1rem;
+  margin-top: 14px;
+  font-size: 0.95rem;
   font-weight: 600;
   display: none;
   opacity: 0;
@@ -404,7 +419,7 @@ body {
 }
 
 .btn-next {
-  margin-top: 20px;
+  margin-top: 16px;
   width: 100%;
   display: none;
 }
@@ -415,22 +430,22 @@ body {
 
 /* --- Screen 3: Unlocking --- */
 .unlock-badge {
-  width: 70px;
-  height: 70px;
+  width: 66px;
+  height: 66px;
   background: rgba(255, 75, 139, 0.15);
   border: 2px solid var(--primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 1.9rem;
+  margin-bottom: 16px;
   box-shadow: 0 0 20px var(--primary-glow);
   animation: pulseGlow 2s infinite;
 }
 
 .unlock-status {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-dim);
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -438,7 +453,7 @@ body {
 }
 
 .unlock-title {
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 8px;
@@ -446,9 +461,9 @@ body {
 }
 
 .unlock-sub {
-  font-size: 1rem;
+  font-size: 0.98rem;
   color: var(--text-muted);
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
 .progress-container {
@@ -457,7 +472,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 6px;
   border-radius: 30px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   position: relative;
 }
 
@@ -480,10 +495,10 @@ body {
 }
 
 .progress-percentage {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--accent);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   font-family: monospace;
 }
 
@@ -497,31 +512,34 @@ body {
   background: rgba(255, 245, 248, 0.04);
   border: 1px solid rgba(255, 182, 193, 0.25);
   border-radius: var(--radius-md);
-  padding: 24px 20px;
+  padding: 20px 18px;
   width: 100%;
   text-align: left;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
-  min-height: 280px;
+  min-height: 240px;
+  max-height: 55vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .line-item {
-  font-size: 1.08rem;
-  line-height: 1.7;
+  font-size: 1.05rem;
+  line-height: 1.65;
   color: #ffffff;
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   display: block;
 }
 
 .line-item.salutation {
   font-family: var(--font-hand);
-  font-size: 1.8rem;
+  font-size: 1.75rem;
   color: var(--accent);
   font-weight: 700;
 }
@@ -545,7 +563,7 @@ body {
 
 /* Tappable Heart Container */
 .heart-tap-wrapper {
-  margin-top: 10px;
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -553,7 +571,7 @@ body {
 }
 
 .heart-3d {
-  font-size: 4rem;
+  font-size: 3.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   animation: heartPulse 1.4s ease-in-out infinite;
@@ -562,14 +580,14 @@ body {
 }
 
 .heart-3d:hover {
-  transform: scale(1.25) rotate(5deg);
+  transform: scale(1.2) rotate(5deg);
   filter: drop-shadow(0 0 25px rgba(255, 75, 139, 1));
 }
 
 .heart-label {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
-  margin-top: 8px;
+  margin-top: 6px;
   letter-spacing: 1px;
   text-transform: uppercase;
   font-weight: 500;
@@ -581,17 +599,21 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
+  width: 100%;
   height: 100vh;
-  background: rgba(10, 3, 20, 0.85);
+  height: 100dvh;
+  background: rgba(10, 3, 20, 0.88);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  z-index: 1000;
+  z-index: 2500;
   display: none;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 60px 16px 30px 16px;
   opacity: 0;
   pointer-events: none;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   transition: opacity 0.5s ease;
 }
 
@@ -606,12 +628,14 @@ body {
   border: 2px solid rgba(255, 75, 139, 0.4);
   box-shadow: 0 0 60px rgba(255, 75, 139, 0.4), inset 0 0 30px rgba(0, 0, 0, 0.5);
   border-radius: var(--radius-lg);
-  padding: 28px 20px;
+  padding: 24px 18px;
   text-align: center;
   max-width: 440px;
   width: 100%;
-  max-height: 90vh;
+  margin: auto 0;
+  max-height: calc(100dvh - 90px);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   transform: scale(0.85);
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -625,20 +649,20 @@ body {
   width: 100%;
   border-radius: 14px;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   border: 1px solid rgba(255, 182, 193, 0.3);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   background: #0d0417;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px;
+  padding: 4px;
 }
 
 .final-poem-img {
   width: 100%;
   height: auto;
-  max-height: 380px;
+  max-height: 300px;
   object-fit: contain;
   border-radius: 8px;
   display: block;
@@ -647,35 +671,35 @@ body {
 .final-poem-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding: 0 6px;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 0 4px;
 }
 
 .poem-line {
-  font-size: 1.08rem;
-  line-height: 1.7;
+  font-size: 1.02rem;
+  line-height: 1.6;
   color: #ffffff;
   font-weight: 500;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .poem-line.highlight {
-  font-size: 1.22rem;
+  font-size: 1.18rem;
   font-weight: 700;
   color: var(--accent);
   background: linear-gradient(135deg, #ffd1dc 0%, #ff4b8b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-top: 6px;
+  margin-top: 4px;
   text-shadow: 0 0 20px var(--primary-glow);
 }
 
 .final-poem-sig {
   font-family: var(--font-hand);
-  font-size: 2.1rem;
+  font-size: 1.9rem;
   color: var(--accent);
-  margin-top: 10px;
+  margin-top: 8px;
   margin-bottom: 8px;
   text-shadow: 0 0 15px rgba(255, 209, 220, 0.5);
 }
@@ -683,7 +707,7 @@ body {
 .modal-actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .btn-secondary {
@@ -710,16 +734,21 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
+  width: 100%;
   height: 100vh;
-  background: rgba(10, 3, 20, 0.9);
+  height: 100dvh;
+  background: rgba(10, 3, 20, 0.92);
   backdrop-filter: blur(15px);
-  z-index: 1100;
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 2600;
   display: none;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 60px 16px 30px 16px;
   opacity: 0;
   pointer-events: none;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   transition: opacity 0.4s ease;
 }
 
@@ -733,23 +762,25 @@ body {
   background: rgba(25, 12, 38, 0.95);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
-  padding: 28px;
+  padding: 24px;
   width: 100%;
   max-width: 500px;
-  max-height: 85vh;
+  margin: auto 0;
+  max-height: calc(100dvh - 90px);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   color: #fff;
   text-align: left;
 }
 
 .customizer-card h3 {
-  font-size: 1.4rem;
-  margin-bottom: 16px;
+  font-size: 1.35rem;
+  margin-bottom: 14px;
   color: var(--accent);
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .form-group label {
@@ -767,7 +798,7 @@ body {
   border-radius: 8px;
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .form-group input:focus, .form-group textarea:focus {
@@ -775,7 +806,7 @@ body {
   border-color: var(--primary);
 }
 
-/* Animations */
+/* Keyframe Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
@@ -830,17 +861,21 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
+  width: 100%;
   height: 100vh;
-  background: rgba(5, 2, 10, 0.96);
+  height: 100dvh;
+  background: rgba(5, 2, 10, 0.97);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   z-index: 2000;
   display: none;
   justify-content: center;
   align-items: center;
-  padding: 24px;
+  padding: 60px 16px 30px 16px;
   opacity: 0;
   pointer-events: none;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   transition: opacity 0.6s ease;
 }
 
@@ -858,6 +893,8 @@ body {
   text-align: center;
   width: 100%;
   max-width: 480px;
+  margin: auto 0;
+  flex-shrink: 0;
   opacity: 0;
   transform: scale(0.95) translateY(10px);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -902,18 +939,18 @@ body {
 }
 
 .story-growing-heart.grow-1 {
-  font-size: 4.5rem;
+  font-size: 4.2rem;
   color: #ff69b4;
 }
 
 .story-growing-heart.grow-2 {
-  font-size: 6rem;
+  font-size: 5.5rem;
   color: #ff1493;
   filter: drop-shadow(0 0 40px rgba(255, 20, 147, 0.9));
 }
 
 .story-typewriter-name {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   font-weight: 700;
   background: linear-gradient(135deg, #ffffff 0%, #ffd1dc 100%);
   -webkit-background-clip: text;
@@ -923,20 +960,20 @@ body {
 
 /* Phase 3: Teaser */
 .story-teaser-title {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 12px;
 }
 
 .story-teaser-sub {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--text-muted);
   margin-bottom: 8px;
 }
 
 .story-teaser-action {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--accent);
 }
@@ -947,22 +984,23 @@ body {
   border: 1px solid var(--card-border);
   box-shadow: var(--card-shadow);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-lg);
-  padding: 36px 28px;
+  padding: 32px 24px;
   width: 100%;
 }
 
 .story-sentence-icon {
-  font-size: 2.5rem;
-  margin-bottom: 16px;
+  font-size: 2.3rem;
+  margin-bottom: 14px;
 }
 
 .story-sentence-text {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: #ffffff;
   line-height: 1.6;
-  min-height: 80px;
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -970,10 +1008,10 @@ body {
 
 /* Phase 5: Memory Polaroid Gallery */
 .memory-gallery-title {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: var(--accent);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .memory-cards-grid {
@@ -981,14 +1019,15 @@ body {
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  max-height: 55vh;
+  max-height: 52vh;
   overflow-y: auto;
-  padding: 10px;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px;
 }
 
 .polaroid-card {
   background: #ffffff;
-  padding: 14px 14px 18px 14px;
+  padding: 12px 12px 16px 12px;
   border-radius: 12px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   transform: rotate(-2deg);
@@ -1013,13 +1052,13 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: 6px;
+  padding: 4px;
 }
 
 .polaroid-img {
   width: 100%;
   height: auto;
-  max-height: 380px;
+  max-height: 280px;
   object-fit: contain;
   border-radius: 4px;
   display: block;
@@ -1027,18 +1066,18 @@ body {
 
 .polaroid-caption {
   font-family: var(--font-hand);
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  margin-top: 12px;
+  margin-top: 10px;
   color: #2d0b3f;
 }
 
 /* Phase 6: Final Dark Quote */
 .story-quote-line {
-  font-size: 1.3rem;
-  line-height: 1.7;
+  font-size: 1.25rem;
+  line-height: 1.65;
   color: var(--text-muted);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   opacity: 0;
   transform: translateY(10px);
   transition: all 0.8s ease;
@@ -1050,7 +1089,7 @@ body {
 }
 
 .story-quote-line.highlight {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: var(--accent);
 }
@@ -1061,25 +1100,25 @@ body {
   border: 1px solid rgba(255, 182, 193, 0.35);
   box-shadow: 0 0 50px rgba(255, 75, 139, 0.35);
   border-radius: var(--radius-lg);
-  padding: 32px 24px;
+  padding: 28px 20px;
   width: 100%;
   text-align: left;
 }
 
 .final-letter-body {
-  font-size: 1.05rem;
-  line-height: 1.75;
+  font-size: 1rem;
+  line-height: 1.7;
   color: #ffffff;
   white-space: pre-line;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   word-break: break-word;
 }
 
 .final-letter-sig {
   font-family: var(--font-hand);
-  font-size: 1.85rem;
+  font-size: 1.75rem;
   color: var(--accent);
-  margin-top: 16px;
+  margin-top: 14px;
   text-align: right;
 }
 
@@ -1089,47 +1128,372 @@ body {
   border: 2px solid var(--primary);
   box-shadow: 0 0 60px rgba(255, 75, 139, 0.5);
   border-radius: var(--radius-lg);
-  padding: 36px 24px;
+  padding: 32px 20px;
   width: 100%;
   text-align: center;
 }
 
 .easter-egg-emoji {
-  font-size: 3.5rem;
-  margin-bottom: 12px;
+  font-size: 3.2rem;
+  margin-bottom: 10px;
 }
 
 .easter-egg-title {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.4;
 }
 
-/* Responsive Tweaks */
+/* ==========================================================================
+   Responsive Mobile Media Queries (Fixes all cut off & overflow issues)
+   ========================================================================== */
+
 @media (max-width: 480px) {
   body {
-    padding: 12px;
+    padding: 68px 12px 20px 12px;
+    align-items: flex-start;
   }
+
   .top-bar {
-    top: 12px;
-    left: 12px;
-    right: 12px;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    width: calc(100% - 20px);
+    transform: none;
   }
+
   .icon-btn {
     padding: 8px 12px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
+    gap: 5px;
   }
+
+  .app-container {
+    margin-top: 2px;
+  }
+
   .glass-card {
-    padding: 24px 18px;
+    padding: 20px 15px;
+    max-height: calc(100dvh - 82px);
+    border-radius: 20px;
   }
+
+  /* Screen 1: Welcome */
+  .hero-image-wrapper {
+    width: 165px;
+    height: 145px;
+    margin-bottom: 16px;
+  }
+
   .welcome-title {
-    font-size: 1.7rem;
+    font-size: 1.55rem;
+    margin-bottom: 8px;
   }
+
+  .welcome-subtitle {
+    font-size: 0.92rem;
+    margin-bottom: 6px;
+  }
+
+  .welcome-teaser {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    margin-bottom: 18px;
+  }
+
+  .btn-primary {
+    padding: 13px 18px;
+    font-size: 0.98rem;
+    border-radius: 25px;
+  }
+
+  /* Screen 2: Quiz */
+  .quiz-header {
+    margin-bottom: 12px;
+  }
+
   .question-text {
-    font-size: 1.1rem;
+    font-size: 1.08rem;
+    min-height: auto;
+    margin-bottom: 14px;
   }
-  .final-title {
-    font-size: 1.8rem;
+
+  .options-grid {
+    gap: 9px;
+  }
+
+  .option-btn {
+    padding: 11px 13px;
+    font-size: 0.9rem;
+    border-radius: 12px;
+    gap: 10px;
+  }
+
+  .option-badge {
+    width: 24px;
+    height: 24px;
+    font-size: 0.78rem;
+  }
+
+  .feedback-banner {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    margin-top: 10px;
+  }
+
+  .btn-next {
+    margin-top: 14px;
+  }
+
+  /* Screen 3: Unlocking */
+  .unlock-badge {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .unlock-title {
+    font-size: 1.45rem;
+  }
+
+  .unlock-sub {
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+  }
+
+  .progress-percentage {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+
+  /* Screen 4: Secret Letter */
+  .letter-container {
+    padding: 16px 12px;
+    min-height: auto;
+    max-height: 48vh;
+    overflow-y: auto;
+    margin-bottom: 16px;
+  }
+
+  .line-item {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 8px;
+  }
+
+  .line-item.salutation {
+    font-size: 1.45rem;
+  }
+
+  .heart-3d {
+    font-size: 3rem;
+  }
+
+  .heart-label {
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  /* Story Overlay System on Mobile */
+  .story-overlay {
+    padding: 60px 12px 25px 12px;
+  }
+
+  .story-phase {
+    max-width: 100%;
+  }
+
+  .story-phase .btn-primary {
+    margin-top: 18px !important;
+  }
+
+  .story-card-wrapper {
+    padding: 22px 16px;
+    border-radius: 18px;
+  }
+
+  .story-sentence-text {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    min-height: 55px;
+  }
+
+  .memory-gallery-title {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+  }
+
+  .memory-cards-grid {
+    gap: 12px;
+    max-height: 48vh;
+    padding: 4px;
+  }
+
+  .polaroid-card {
+    padding: 10px 10px 14px 10px;
+  }
+
+  .polaroid-img {
+    max-height: 210px;
+  }
+
+  .polaroid-caption {
+    font-size: 1.2rem;
+    margin-top: 6px;
+  }
+
+  .story-quote-line {
+    font-size: 1.1rem;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+
+  .story-quote-line.highlight {
+    font-size: 1.25rem;
+  }
+
+  .final-letter-card {
+    padding: 22px 16px;
+    border-radius: 18px;
+  }
+
+  .final-letter-body {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .final-letter-sig {
+    font-size: 1.45rem;
+    margin-top: 10px;
+  }
+
+  .easter-egg-card {
+    padding: 26px 16px;
+    border-radius: 18px;
+  }
+
+  .easter-egg-emoji {
+    font-size: 2.6rem;
+    margin-bottom: 6px;
+  }
+
+  .easter-egg-title {
+    font-size: 1.28rem;
+  }
+
+  /* Final Poem Modal on Mobile */
+  .modal-overlay {
+    padding: 55px 12px 20px 12px;
+  }
+
+  .final-poem-card {
+    padding: 18px 14px;
+    max-height: calc(100dvh - 75px);
+    border-radius: 18px;
+  }
+
+  .final-poem-img-wrapper {
+    margin-bottom: 12px;
+  }
+
+  .final-poem-img {
+    max-height: 190px;
+  }
+
+  .poem-line {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .poem-line.highlight {
+    font-size: 1.05rem;
+  }
+
+  .final-poem-sig {
+    font-size: 1.5rem;
+    margin-top: 6px;
+  }
+
+  /* Customizer Modal on Mobile */
+  .customizer-modal {
+    padding: 55px 12px 20px 12px;
+  }
+
+  .customizer-card {
+    padding: 18px 14px;
+    max-height: calc(100dvh - 75px);
+    border-radius: 18px;
+  }
+
+  .customizer-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .form-group input, .form-group textarea {
+    font-size: 16px; /* Prevents auto-zoom on iOS Safari */
+    padding: 9px 12px;
+  }
+}
+
+/* Extra small screens (max-width: 360px) */
+@media (max-width: 360px) {
+  body {
+    padding: 62px 8px 15px 8px;
+  }
+
+  .glass-card {
+    padding: 16px 12px;
+  }
+
+  .welcome-title {
+    font-size: 1.4rem;
+  }
+
+  .hero-image-wrapper {
+    width: 140px;
+    height: 125px;
+  }
+
+  .question-text {
+    font-size: 0.98rem;
+  }
+
+  .option-btn {
+    padding: 10px 11px;
+    font-size: 0.85rem;
+  }
+
+  .polaroid-img {
+    max-height: 170px;
+  }
+
+  .final-poem-img {
+    max-height: 160px;
+  }
+}
+
+/* Landscape mode on small height screens */
+@media (max-height: 600px) {
+  body {
+    padding-top: 55px;
+    align-items: flex-start;
+  }
+
+  .glass-card, .final-poem-card, .customizer-card {
+    max-height: calc(100dvh - 65px);
+  }
+
+  .hero-image-wrapper {
+    width: 120px;
+    height: 105px;
+    margin-bottom: 10px;
+  }
+
+  .welcome-title {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
   }
 }

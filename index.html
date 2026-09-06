@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Secret Just For You, Pragaaa 💌</title>
+  <meta name="description" content="A special secret message interactive web app created just for Pragaaa.">
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+</head>
+<body>
+
+  <!-- Particle Background Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Top Control Bar -->
+  <header class="top-bar">
+    <button id="btn-customizer" class="icon-btn" title="Customize Questions & Message">
+      <span>⚙️</span>
+      <span>Customize</span>
+    </button>
+
+    <button id="btn-audio" class="icon-btn active" title="Toggle Sound & Music">
+      <span id="audio-icon">🔊</span>
+      <span id="audio-text">Sound ON</span>
+    </button>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container">
+    <div class="glass-card">
+      
+      <!-- SCREEN 1: Welcome Screen -->
+      <section id="screen-welcome" class="screen active">
+        <div class="hero-image-wrapper">
+          <img src="assets/childhood_header.jpg" alt="Secret Header" class="hero-img">
+          <div class="hero-glow-ring"></div>
+        </div>
+
+        <h1 class="welcome-title">💌 Hey Pragaaa...</h1>
+        <p class="welcome-subtitle">Gunduuu left a secret message for you. 💌</p>
+        <div class="welcome-teaser">
+          But you have to prove you're really Pragaaa. 👀
+        </div>
+
+        <button id="btn-start-quiz" class="btn-primary">
+          <span>Unlock My Message 🔐</span>
+        </button>
+      </section>
+
+      <!-- SCREEN 2: Mini Questions Quiz -->
+      <section id="screen-quiz" class="screen">
+        <div class="quiz-header">
+          <div class="progress-dots" id="quiz-dots">
+            <!-- Dots generated dynamically in app.js -->
+          </div>
+          <span class="question-tracker" id="quiz-tracker">Question 1 of 5</span>
+        </div>
+
+        <div class="question-card">
+          <h2 class="question-text" id="quiz-question-text">
+            What is our most unforgettable memory? 🥹
+          </h2>
+          
+          <div class="options-grid" id="quiz-options-container">
+            <!-- Options generated dynamically in app.js -->
+          </div>
+        </div>
+
+        <!-- Feedback Banner -->
+        <div id="quiz-feedback" class="feedback-banner"></div>
+
+        <button id="btn-next-question" class="btn-primary btn-next">
+          <span>Next Question →</span>
+        </button>
+      </section>
+
+      <!-- SCREEN 3: Identity Verification & Unlocking -->
+      <section id="screen-unlocking" class="screen">
+        <div class="unlock-badge">🔐</div>
+        <div class="unlock-status">Identity Verified</div>
+        <h2 class="unlock-title">PRAGAAA CONFIRMED ✅</h2>
+        <p class="unlock-sub">Preparing your secret message...</p>
+
+        <div class="progress-container">
+          <div id="unlock-progress-bar" class="progress-bar">
+            <span class="progress-sparkle">✨</span>
+          </div>
+        </div>
+        <div id="unlock-percent" class="progress-percentage">░░░░░░░░░░ 0%</div>
+
+        <button id="btn-open-secret" class="btn-primary btn-open">
+          <span>✨ OPEN ✨</span>
+        </button>
+      </section>
+
+      <!-- SCREEN 4: The Secret Message -->
+      <section id="screen-secret" class="screen">
+        <div class="letter-container" id="letter-lines-container">
+          <!-- Lines will be revealed line by line dynamically -->
+        </div>
+
+        <!-- Tappable Heart element -->
+        <div id="heart-tap-container" class="heart-tap-wrapper" style="display: none;">
+          <div id="heart-btn" class="heart-3d" title="Tap the heart!">❤️</div>
+          <span class="heart-label">Tap the heart ❤️</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FINAL POEM SCREEN MODAL OVERLAY -->
+  <div id="modal-final" class="modal-overlay">
+    <div class="final-poem-card">
+      <div class="final-poem-img-wrapper">
+        <img src="assets/final_poem_photo.png" alt="Forever Memory" class="final-poem-img">
+      </div>
+
+      <div class="final-poem-content">
+        <p class="poem-line">தூங்காத உன் கண்ணின் கனவாக நான் ✨</p>
+        <p class="poem-line">தூரத்தில் இருந்தாலும் பிரியாத நீ 🌙</p>
+        <p class="poem-line">வாசத்தின் வாசலில் தோரணம் நான் 🌸</p>
+        <p class="poem-line">வார்த்தைகள் தித்திக்கும் காரணம் நீ 💖</p>
+        <p class="poem-line">யாசித்து நீ கேட்ட இரவாக நான் 🌌</p>
+        <p class="poem-line highlight">“யாருக்கும் தெரியாத உறவாக நீ” 🥹💗</p>
+      </div>
+
+      <div class="final-poem-sig">— Forever Yours, Gunduuu 🌙</div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE STORY OVERLAY (Triggered after tapping heart) -->
+  <div id="story-overlay" class="story-overlay">
+    <!-- Phase 1: Wait / Dark prelude -->
+    <div id="story-phase-wait" class="story-phase active">
+      <p class="story-wait-line">Wait...</p>
+      <p class="story-wait-sub">Something is coming for you... 👀</p>
+      <div class="story-glowing-dot"></div>
+    </div>
+
+    <!-- Phase 2: Dot -> Growing Heart -> Name Typewriter -->
+    <div id="story-phase-intro" class="story-phase">
+      <div id="story-growing-heart" class="story-growing-heart">♡</div>
+      <h2 id="story-typewriter-name" class="story-typewriter-name"></h2>
+    </div>
+
+    <!-- Phase 3: "I have something to tell you..." Teaser + Begin -->
+    <div id="story-phase-teaser" class="story-phase">
+      <h2 class="story-teaser-title">I have something to tell you...</h2>
+      <p class="story-teaser-sub">But words aren't enough. 🥺</p>
+      <p class="story-teaser-action">So I'll show you.</p>
+      <button id="btn-story-begin" class="btn-primary" style="margin-top: 28px; max-width: 220px;">
+        <span>✨ Begin ✨</span>
+      </button>
+    </div>
+
+    <!-- Phase 4: Story Sentences (Card by Card) -->
+    <div id="story-phase-sentences" class="story-phase">
+      <div class="story-card-wrapper">
+        <div id="story-sentence-icon" class="story-sentence-icon">✨</div>
+        <p id="story-sentence-text" class="story-sentence-text"></p>
+        <button id="btn-story-next-sentence" class="btn-primary" style="margin-top: 28px; width: 100%;">
+          <span>Tap to continue →</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Phase 5: Memory Polaroid Gallery -->
+    <div id="story-phase-memories" class="story-phase">
+      <h3 class="memory-gallery-title">Memories & Moments 💖</h3>
+      <div id="memory-cards-grid" class="memory-cards-grid">
+        <!-- Polaroid cards generated dynamically -->
+      </div>
+      <button id="btn-story-to-quote" class="btn-primary" style="margin-top: 28px; max-width: 240px;">
+        <span>Continue Story ✨</span>
+      </button>
+    </div>
+
+    <!-- Phase 6: Final Dark Quote -->
+    <div id="story-phase-quote" class="story-phase">
+      <p id="story-quote-1" class="story-quote-line"></p>
+      <p id="story-quote-2" class="story-quote-line highlight"></p>
+      <button id="btn-story-quote-next" class="btn-primary" style="margin-top: 28px; max-width: 240px; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;">
+        <span>Continue →</span>
+      </button>
+    </div>
+
+    <!-- Phase 7: Final Handwritten Card -->
+    <div id="story-phase-final-card" class="story-phase">
+      <div class="final-letter-card">
+        <div id="story-final-body" class="final-letter-body"></div>
+        <div id="story-final-sig" class="final-letter-sig">— From me, to my Pragaaa 🌙</div>
+        
+        <button id="btn-story-easter-egg" class="btn-primary" style="margin-top: 24px; width: 100%;">
+          <span>One last thing... 👀</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Phase 8: Easter Egg Surprise -->
+    <div id="story-phase-easter-egg" class="story-phase">
+      <div class="easter-egg-card">
+        <div class="easter-egg-emoji">🎉💗</div>
+        <h2 id="story-easter-egg-text" class="easter-egg-title">Okay okay... NOW you're allowed to smile. 😌💗</h2>
+        
+        <button id="btn-story-close" class="btn-primary" style="margin-top: 28px; width: 100%;">
+          <span>Close 💌</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMIZER MODAL OVERLAY -->
+  <div id="modal-customizer" class="customizer-modal">
+    <div class="customizer-card">
+      <h3>⚙️ Customize Secret App</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        Personalize questions or message for Pragaaa. Changes persist automatically!
+      </p>
+
+      <div id="customizer-questions-list">
+        <!-- Input fields for questions will be dynamically populated -->
+      </div>
+
+      <div class="form-group" style="margin-top: 20px;">
+        <label>Secret Message Lines (One per line):</label>
+        <textarea id="custom-secret-lines" rows="8"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Final Surprise Title:</label>
+        <input type="text" id="custom-final-title">
+      </div>
+      <div class="form-group">
+        <label>Final Surprise Message:</label>
+        <input type="text" id="custom-final-msg">
+      </div>
+      <div class="form-group">
+        <label>Final Signature:</label>
+        <input type="text" id="custom-final-sig">
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button id="btn-save-custom" class="btn-primary" style="flex: 1;">Save Changes</button>
+        <button id="btn-reset-custom" class="btn-secondary">Reset</button>
+        <button id="btn-close-custom" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="particles.js"></script>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
